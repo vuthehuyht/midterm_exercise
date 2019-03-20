@@ -52,12 +52,21 @@ int main() {
 	if (choise == 2) {
 		initSocket("127.0.0.1", 1080);
 		char data[1024];
-		ZeroMemory(data, sizeof(data));
-		strcpy_s(data, "Hello server!");
-		send(connection, data, sizeof(data), 0);
-		ZeroMemory(data, sizeof(data));
 		recv(connection, data, sizeof(data), 0);
 		std::cout << data << std::endl;
+		ZeroMemory(data, sizeof(data));
+		while (true) {
+			ZeroMemory(data, sizeof(data));
+			gets_s(data);
+			if (strcmp(data, "pp") == 0) {
+				send(connection, data, sizeof(data), 0);
+				break;
+			}
+			send(connection, data, sizeof(data), 0);
+			ZeroMemory(data, sizeof(data));
+			recv(connection, data, sizeof(data), 0);
+			std::cout << data << std::endl;
+		}
 	}
 	
 	if (choise == 3) {
