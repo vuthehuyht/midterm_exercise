@@ -1,4 +1,4 @@
-  Client.LoginForm1.resources - Embedded, ContainedInManifestFile, 
+  Client.LoginForm.resources - Embedded, ContainedInManifestFile, 
 ImageRuntimeVersion: v4.0.30319
 Assembly Client, Version=0.0.*, Culture=Invariant Language (Invariant Country): 
 	hash=SHA1, flags=PublicKey

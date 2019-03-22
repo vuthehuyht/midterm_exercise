@@ -1,5 +1,5 @@
 
-#include "LoginForm1.h"
+#include "LoginForm.h"
 using namespace Client;
 
 int main() {
