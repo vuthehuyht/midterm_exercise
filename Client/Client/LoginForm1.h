@@ -1,6 +1,9 @@
-#pragma once
+#pragma comment(lib,"ws2_32.lib")
 #include<cstdlib>
-#include<Windows.h>
+#include<WinSock2.h>
+#include<WS2tcpip.h>
+#include<iostream>
+#include<string>
 namespace Client {
 
 	using namespace System;
@@ -40,6 +43,27 @@ namespace Client {
 	private: System::Windows::Forms::Label^  label3;
 	private: System::Windows::Forms::Label^  label4;
 	private: System::Windows::Forms::TextBox^  choise;
+	private: SOCKET connection;
+	private: void initSocket(std::string ip, int port) {
+		WSAData wsaData;
+		WORD DllVersion = MAKEWORD(2, 1);
+		if (WSAStartup(DllVersion, &wsaData) != 0) {
+			MessageBox::Show("Winsock startup failed", "Error", MessageBoxButtons::OK);
+			return;
+		}
+
+		sockaddr_in addr;
+		int addrlen = sizeof(addr);
+		inet_pton(AF_INET, ip.c_str(), &addr.sin_addr);
+		addr.sin_port = htons(port);
+		addr.sin_family = AF_INET;
+
+		connection = socket(AF_INET, SOCK_STREAM, 0);
+		if (connect(connection, (SOCKADDR*)&addr, sizeof(addr)) != 0) {
+			MessageBox::Show("Failed to connect", "Error", MessageBoxButtons::OK);
+			return;
+		}
+	}
 	protected:
 
 	private:
@@ -104,13 +128,13 @@ namespace Client {
 			this->choise->Name = L"choise";
 			this->choise->Size = System::Drawing::Size(56, 20);
 			this->choise->TabIndex = 4;
-			this->choise->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &LoginForm::choise_keyPressed);
+			this->choise->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &LoginForm::choise_keyPressed);
 			// 
 			// LoginForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(439, 150);
+			this->ClientSize = System::Drawing::Size(300, 150);
 			this->Controls->Add(this->choise);
 			this->Controls->Add(this->label4);
 			this->Controls->Add(this->label3);
@@ -123,17 +147,21 @@ namespace Client {
 
 		}
 #pragma endregion
-	private: System::Void choise_keyPressed(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^ e) {
-		if (e->KeyChar.CompareTo(Keys::Enter) == 0) {
-			int choiseTemp = System::Convert::ToInt32(choise);
-			while (choiseTemp <= 0 || choiseTemp > 3) {
-				label4->Text = "Enter your choise again: ";
-				choise->Text = "";
-				choiseTemp = System::Convert::ToInt32(choise);
+	private: System::Void choise_keyPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^ e) {
+		if (e->KeyCode == Keys::Enter) {
+			Int16 choiseTemp = System::Convert::ToInt16(choise->Text);
+			if (choiseTemp.CompareTo(3) == 0) {
+				LoginForm::Close();
 			}
-
-			if (choiseTemp == 3) {
-				exit(0);
+			if (choiseTemp.CompareTo(2) == 0) {
+				initSocket("127.0.0.1", 1080);
+				char data[1024];
+				ZeroMemory(data, sizeof(data));
+				strcpy_s(data, "Hello server!");
+				send(connection, data, sizeof(data), 0);
+				ZeroMemory(data, sizeof(data));
+				recv(connection, data, sizeof(data), 0);
+				std::cout << data << std::endl;
 			}
 		}
 	}
