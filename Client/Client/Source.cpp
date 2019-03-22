@@ -3,7 +3,8 @@
 #include<WS2tcpip.h>
 #include<iostream>
 #include<string>
-
+#include "LoginForm1.h"
+using namespace Client;
 SOCKET connection;
 
 void initSocket(std::string ip, int port) {
@@ -28,51 +29,8 @@ void initSocket(std::string ip, int port) {
 }
 
 int main() {
-	std::cout << "1. Create room" << std::endl;
-	std::cout << "2. Join room" << std::endl;
-	std::cout << "3. Exit" << std::endl;
-	std::cout << "Enter your choise: ";
-	int choise;
-	std::cin >> choise;
-	while (choise <= 0 || choise >= 4) {
-		std::cout << "Enter your choise again: ";
-		std::cin >> choise;
-	}
-
-	if (choise == 1) {
-		std::string ip;
-		int port;
-		std::cout << "Enter server IP: ";
-		std::getline(std::cin, ip);
-		std::cout << "Enter server port: ";
-		std::cin >> port;
-		initSocket(ip, port);
-	}
-
-	if (choise == 2) {
-		initSocket("127.0.0.1", 1080);
-		char data[1024];
-		recv(connection, data, sizeof(data), 0);
-		std::cout << data << std::endl;
-		ZeroMemory(data, sizeof(data));
-		while (true) {
-			ZeroMemory(data, sizeof(data));
-			gets_s(data);
-			if (strcmp(data, "pp") == 0) {
-				send(connection, data, sizeof(data), 0);
-				break;
-			}
-			send(connection, data, sizeof(data), 0);
-			ZeroMemory(data, sizeof(data));
-			recv(connection, data, sizeof(data), 0);
-			std::cout << data << std::endl;
-		}
-	}
-	
-	if (choise == 3) {
-		exit(0);
-	}
-
-	system("pause");
+	Application::EnableVisualStyles();
+	Client::LoginForm form;
+	Application::Run(%form);
 	return 0;
 }

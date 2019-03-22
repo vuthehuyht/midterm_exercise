@@ -1,3 +1,5 @@
 ﻿  Source.cpp
-  LINK : F:\Documents\midterm_exercise\Client\x64\Debug\Client.exe not found or not built by the last incremental link; performing full link
-  Client.vcxproj -> F:\Documents\midterm_exercise\Client\x64\Debug\Client.exe
+  Source.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+Source.obj : error LNK2028: unresolved token (0A0004E9) "extern "C" int __cdecl MessageBoxA(struct HWND__ *,char const *,char const *,unsigned int)" (?MessageBoxA@@$$J0YAHPEAUHWND__@@PEBD1I@Z) referenced in function "void __cdecl initSocket(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,int)" (?initSocket@@$$FYAXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@H@Z)
+Source.obj : error LNK2019: unresolved external symbol "extern "C" int __cdecl MessageBoxA(struct HWND__ *,char const *,char const *,unsigned int)" (?MessageBoxA@@$$J0YAHPEAUHWND__@@PEBD1I@Z) referenced in function "void __cdecl initSocket(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,int)" (?initSocket@@$$FYAXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@H@Z)
+C:\Users\Administrator\Desktop\midterm_exercise\Client\x64\Debug\Client.exe : fatal error LNK1120: 2 unresolved externals
