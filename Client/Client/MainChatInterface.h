@@ -23,7 +23,7 @@ namespace Client {
 			//
 		}
 		void displayMessage(System::String^ message) {
-			textBox2->AppendText(message + "\r\n");
+			this->textBox2->AppendText(message + System::Environment::NewLine);
 		}
 
 	protected:
@@ -37,7 +37,9 @@ namespace Client {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::TextBox^  textBox1;
+	private: System::Windows::Forms::TextBox^  messageEntered;
+	protected:
+
 	private: System::Windows::Forms::TextBox^  textBox2;
 	protected:
 
@@ -55,24 +57,25 @@ namespace Client {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->messageEntered = (gcnew System::Windows::Forms::TextBox());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->SuspendLayout();
 			// 
-			// textBox1
+			// messageEntered
 			// 
-			this->textBox1->Location = System::Drawing::Point(24, 316);
-			this->textBox1->MaxLength = 10000;
-			this->textBox1->Multiline = true;
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(319, 32);
-			this->textBox1->TabIndex = 0;
+			this->messageEntered->Location = System::Drawing::Point(24, 316);
+			this->messageEntered->MaxLength = 10000;
+			this->messageEntered->Name = L"messageEntered";
+			this->messageEntered->Size = System::Drawing::Size(319, 20);
+			this->messageEntered->TabIndex = 0;
+			this->messageEntered->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MainChatInterface::textBox1_TextChanged);
 			// 
 			// textBox2
 			// 
 			this->textBox2->Location = System::Drawing::Point(20, 15);
 			this->textBox2->MaxLength = 10000000;
 			this->textBox2->Multiline = true;
+			this->textBox2->Name = L"textBox2";
 			this->textBox2->ScrollBars = System::Windows::Forms::ScrollBars::Horizontal;
 			this->textBox2->Size = System::Drawing::Size(323, 286);
 			this->textBox2->TabIndex = 1;
@@ -84,7 +87,7 @@ namespace Client {
 			this->BackColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->ClientSize = System::Drawing::Size(355, 363);
 			this->Controls->Add(this->textBox2);
-			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->messageEntered);
 			this->Name = L"MainChatInterface";
 			this->Text = L"Chat Interface";
 			this->ResumeLayout(false);
@@ -92,5 +95,11 @@ namespace Client {
 
 		}
 #pragma endregion
+	private: System::Void textBox1_TextChanged(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
+		if (e->KeyCode == Keys::Enter) {
+			this->textBox2->AppendText("Me: "+messageEntered->Text + System::Environment::NewLine);
+			messageEntered->Text = "";
+		}
+	}
 	};
 }

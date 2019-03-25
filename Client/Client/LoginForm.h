@@ -156,17 +156,10 @@ namespace Client {
 				LoginForm::Close();
 			}
 			if (choiseTemp.CompareTo(2) == 0) {
-				initSocket("127.0.0.1", 1080);
 				this->Hide();
+				char data[100] = "Hello client";
 				Client::MainChatInterface main;
-				char data[1024];
-				ZeroMemory(data, sizeof(data));
-				strcpy_s(data, "Hello server!");
-				send(connection, data, sizeof(data), 0);
-				ZeroMemory(data, sizeof(data));
-				recv(connection, data, sizeof(data), 0);
-				std::cout << data << std::endl;
-				main.displayMessage(System::Convert::ToString(data));
+				main.displayMessage(gcnew System::String(data));
 				main.ShowDialog();
 				this->Show();
 				
@@ -177,6 +170,7 @@ namespace Client {
 				serverInfor.ShowDialog();
 				this->Show();
 			}
+			choise->Text = "";
 		}
 	}
 };
