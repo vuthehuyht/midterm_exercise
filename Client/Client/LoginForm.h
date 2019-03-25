@@ -4,6 +4,7 @@
 #include<WS2tcpip.h>
 #include<iostream>
 #include<string>
+#include "ServerInforForm.h"
 namespace Client {
 
 	using namespace System;
@@ -162,6 +163,12 @@ namespace Client {
 				ZeroMemory(data, sizeof(data));
 				recv(connection, data, sizeof(data), 0);
 				std::cout << data << std::endl;
+			}
+			if (choiseTemp.CompareTo(1) == 0) {
+				this->Hide();
+				Client::ServerInforForm serverInfor;
+				serverInfor.ShowDialog();
+				this->Show();
 			}
 		}
 	}
