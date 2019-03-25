@@ -38,20 +38,12 @@ bool Server::listenForNewConnection() {
 	}
 	else {
 		char data[1024];
-		std::cout << "Client connected!" << std::endl;
-		char sucessMsg[255] = "Connect successfully!";
-		send(newConnect, sucessMsg, sizeof(sucessMsg), 0);
-		while (true) {
-			ZeroMemory(data, sizeof(data));
-			recv(newConnect, data, sizeof(data), 0);
-			if (strcmp(data, "pp") == 0) {
-				std::cout << "Client disconnected!" << std::endl;
-				break;
-			}
-			std::cout << "Client: " << data << std::endl;
-			strcat_s(data, "Server: ");
-			send(newConnect, data, sizeof(data), 0);
-		}
+		ZeroMemory(data, sizeof(data));
+		recv(newConnect, data, sizeof(data), 0);
+		std::cout << data << std::endl;
+		ZeroMemory(data, sizeof(data));
+		strcpy_s(data, "Hello client");
+		send(newConnect, data, sizeof(data), 0);
 	}
 	return true;
 }

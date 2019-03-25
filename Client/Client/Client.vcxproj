@@ -136,6 +136,9 @@
     <ClInclude Include="LoginForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="MainChatInterface.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="ServerInforForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -144,11 +147,15 @@
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MainChatInterface.resx">
+      <DependentUpon>MainChatInterface.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ServerInforForm.resx">
       <DependentUpon>ServerInforForm.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MainChatInterface.cpp" />
     <ClCompile Include="ServerInforForm.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>

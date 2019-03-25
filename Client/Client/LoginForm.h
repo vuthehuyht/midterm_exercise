@@ -5,6 +5,7 @@
 #include<iostream>
 #include<string>
 #include "ServerInforForm.h"
+#include "MainChatInterface.h"
 namespace Client {
 
 	using namespace System;
@@ -124,7 +125,7 @@ namespace Client {
 			// 
 			this->choise->Location = System::Drawing::Point(154, 96);
 			this->choise->Name = L"choise";
-			this->choise->Size = System::Drawing::Size(56, 20);
+			this->choise->Size = System::Drawing::Size(88, 20);
 			this->choise->TabIndex = 4;
 			this->choise->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &LoginForm::choise_keyPressed);
 			// 
@@ -156,6 +157,8 @@ namespace Client {
 			}
 			if (choiseTemp.CompareTo(2) == 0) {
 				initSocket("127.0.0.1", 1080);
+				this->Hide();
+				Client::MainChatInterface main;
 				char data[1024];
 				ZeroMemory(data, sizeof(data));
 				strcpy_s(data, "Hello server!");
@@ -163,6 +166,10 @@ namespace Client {
 				ZeroMemory(data, sizeof(data));
 				recv(connection, data, sizeof(data), 0);
 				std::cout << data << std::endl;
+				main.displayMessage(System::Convert::ToString(data));
+				main.ShowDialog();
+				this->Show();
+				
 			}
 			if (choiseTemp.CompareTo(1) == 0) {
 				this->Hide();
