@@ -150,7 +150,10 @@ namespace Client {
 #pragma endregion
 	private: System::Void choise_keyPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^ e) {
 		if (e->KeyCode == Keys::Enter) {
-			Int16 choiseTemp = System::Convert::ToInt16(choise->Text);
+			Int64 choiseTemp = System::Convert::ToInt64(choise->Text);
+			if (choiseTemp <= 0 || choiseTemp > 3) {
+				MessageBox::Show("Lua chon khong hop le!", "Error", MessageBoxButtons::OK);
+			}
 			if (choiseTemp.CompareTo(3) == 0) {
 				LoginForm::Close();
 			}

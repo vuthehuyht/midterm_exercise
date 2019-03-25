@@ -1,6 +1,4 @@
 #pragma once
-#include "LoginForm.h"
-using namespace Client;
 namespace Client {
 
 	using namespace System;
@@ -134,10 +132,7 @@ namespace Client {
 		}
 #pragma endregion
 	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
-		this->Hide();
-		Client::LoginForm form;
-		form.ShowDialog();
-		this->Show();
+		this->Close();
 	}
 };
 }
