@@ -44,6 +44,7 @@ bool Server::listenForNewConnection() {
 		ZeroMemory(data, sizeof(data));
 		strcpy_s(data, "Hello client");
 		send(newConnect, data, sizeof(data), 0);
+		std::cout << data << std::endl;
 	}
 	return true;
 }
