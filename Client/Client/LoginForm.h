@@ -157,8 +157,14 @@ namespace Client {
 			}
 			if (choiseTemp.CompareTo(2) == 0) {
 				this->Hide();
-				char data[100] = "Hello client";
 				Client::MainChatInterface main;
+				initSocket("127.0.0.1", 1080);
+				char data[1024];
+				ZeroMemory(data, sizeof(data));
+				strcpy_s(data, "Hello server!");
+				send(connection, data, sizeof(data), 0);
+				ZeroMemory(data, sizeof(data));
+				recv(connection, data, sizeof(data), 0);
 				main.displayMessage(gcnew System::String(data));
 				main.ShowDialog();
 				this->Show();
