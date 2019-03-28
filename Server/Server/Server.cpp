@@ -7,7 +7,7 @@ Server::Server(int port){
 	WORD dllVersion = MAKEWORD(2, 1);
 
 	if (WSAStartup(dllVersion, &wsadata) != 0) {
-		MessageBox(NULL, "Winsock start faild", "Error", MB_OK | MB_ICONERROR);
+		MessageBox(NULL, "Winsock start failed", "Error", MB_OK | MB_ICONERROR);
 		exit(1);
 	}
 
