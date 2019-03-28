@@ -1,9 +1,13 @@
 #include"Server.h"
-
+#include "Config.h"
 int main() {
-	Server server(1080);
-	for (int i = 0; i < 100; i++) {
-		server.listenForNewConnection();
+	Config config;
+	config.loadUserData();
+	config.saveUserData();
+	map<string, string> userList;
+	userList = config.getUserData();
+	for (map<string, string>::iterator i = userList.begin(); i != userList.end(); i++) {
+		cout << i->first << " " << i->second << endl;
 	}
 	system("pause");
 	return 0;
