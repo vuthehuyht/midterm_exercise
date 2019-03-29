@@ -55,6 +55,21 @@ void Config::saveUserData() {
 	}
 
 }
+void Config::loadKey() {
+	std::string data;
+	f.open("keyData.txt", std::ios::in);
+
+	if (f.fail())
+		std::cout << "Opening file fail" << std::endl;
+	else {
+		string line;
+		while (!f.eof()) {
+			getline(f, line);
+			keyData.push_back(line);
+		}
+	}
+	f.close();
+}
 
 map<string, string> Config::getUserData() {
 	return userData;
