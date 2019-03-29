@@ -14,6 +14,7 @@ namespace Client {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Threading;
 
 	/// <summary>
 	/// Summary for LoginForm
@@ -42,6 +43,8 @@ namespace Client {
 	private: System::Windows::Forms::Label^  label3;
 	private: System::Windows::Forms::Label^  label4;
 	private: System::Windows::Forms::TextBox^  choise;
+	private: Client::MainChatInterface main;
+	private: Thread^ t;
 	private: SOCKET connection;
 	private: void initSocket(std::string ip, int port) {
 		WSAData wsaData;
@@ -62,6 +65,19 @@ namespace Client {
 			MessageBox::Show("Failed to connect", "Error", MessageBoxButtons::OK);
 			return;
 		}
+	}
+	private: void createHandle() {
+		char data[1024];
+		while (true) {
+			ZeroMemory(data, sizeof(data));
+			strcpy_s(data, "Hello server!");
+			send(connection, data, sizeof(data), 0);
+			ZeroMemory(data, sizeof(data));
+			recv(connection, data, sizeof(data), 0);
+			main.displayMessage(gcnew System::String(data));
+			main.ShowDialog();
+		}
+		t->Abort();
 	}
 	protected:
 
@@ -139,7 +155,7 @@ namespace Client {
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
-			this->Name = L"LoginForm";
+			this->Name = L"Login Form";
 			this->Text = L"LoginForm";
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -157,18 +173,9 @@ namespace Client {
 			}
 			if (choiseTemp.CompareTo(2) == 0) {
 				this->Hide();
-				Client::MainChatInterface main;
 				initSocket("127.0.0.1", 1080);
-				char data[1024];
-				ZeroMemory(data, sizeof(data));
-				strcpy_s(data, "Hello server!");
-				send(connection, data, sizeof(data), 0);
-				ZeroMemory(data, sizeof(data));
-				recv(connection, data, sizeof(data), 0);
-				main.displayMessage(gcnew System::String(data));
-				main.ShowDialog();
-				this->Show();
-				
+				t = gcnew Thread(gcnew ThreadStart(this, &LoginForm::createHandle));
+				t->Start();
 			}
 			if (choiseTemp.CompareTo(1) == 0) {
 				this->Hide();

@@ -89,16 +89,23 @@ namespace Client {
 			this->Controls->Add(this->textBox2);
 			this->Controls->Add(this->messageEntered);
 			this->Name = L"MainChatInterface";
-			this->Text = L"Chat Interface";
+			this->Text = L"Main Chat";
 			this->ResumeLayout(false);
 			this->PerformLayout();
-
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MainChatInterface::ChatFormClosed);
 		}
 #pragma endregion
 	private: System::Void textBox1_TextChanged(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
 		if (e->KeyCode == Keys::Enter) {
-			this->textBox2->AppendText("Me: "+messageEntered->Text + System::Environment::NewLine);
+			this->textBox2->AppendText("Me: " + messageEntered->Text + System::Environment::NewLine);
 			messageEntered->Text = "";
+		}
+	}
+	private: System::Void ChatFormClosed(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+		if (MessageBox::Show("Do you want to exit?", "Warning", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes) {
+		}
+		else {
+			e->Cancel = true;
 		}
 	}
 	};
