@@ -18,25 +18,29 @@ void Config::loadUserData() {
 		std::cout << "Opening file fail" << std::endl;
 	else {
 		int i = 1;
-		string usernameTemp;
-		string ruleTemp;
+		User user;
 		while (!f.eof()) {
 			getline(f, data);
+			char dataTemp[100];
+			strcpy_s(dataTemp, data.c_str());
 			if (i == 1) {
-				usernameTemp = data;
+				user.setUsername(dataTemp);	
+				i++;
+				continue;
+			} 
+			else if (i == 2) {
+				user.setNickname(dataTemp);
 				i++;
 				continue;
 			}
-			if (i == 2) {
-				ruleTemp = data;
+			else if (i == 3) {
+				user.setRule(dataTemp);
 				i++;
-				if (i == 3) {
-					pair<string, string> dataTemp = make_pair(usernameTemp, ruleTemp);
-					userData.insert(dataTemp);
+				if (i == 4) {
+					userData.push_back(user);
 					i = 1;
 				}
 			}
-			continue;
 		}
 	}
 	f.close();
@@ -46,10 +50,10 @@ void Config::saveUserData() {
 	if (f.fail())
 		std::cout << "Open file fail" << std::endl;
 	else {
-		for (std::map<string, string>::iterator a = userData.begin(); a != userData.end(); a++) {
-			f << a->first << endl;
-			f << a->second << endl;
-
+		for (vector<User>::iterator i = userData.begin(); i != userData.end(); i++) {
+			f << i->getUsername() << endl;
+			f << i->getNickname() << endl;
+			f << i->getRule() << endl;
 		}
 
 	}
@@ -71,6 +75,14 @@ void Config::loadKey() {
 	f.close();
 }
 
-map<string, string> Config::getUserData() {
+bool Config::checkUsername(std::string username) {
+	for (vector<User>::iterator i = userData.begin(); i != userData.end(); i++) {
+		if (username.compare(string(i->getUsername())) == 0)
+			return true;
+	}
+	return false;
+}
+
+vector<User> Config::getUserData() {
 	return userData;
 }

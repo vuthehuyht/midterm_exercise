@@ -4,6 +4,7 @@
 #include<winsock.h>
 #include<string>
 #include<iostream>
+#include "Config.h"
 class Server
 {
 public:
@@ -15,5 +16,6 @@ private:
 	SOCKADDR_IN addr;
 	int addrlen = sizeof(addr);
 	SOCKET listening;
+	Config config;
 };
 

@@ -28,6 +28,8 @@ Server::Server(int port){
 		MessageBoxA(NULL, errorMsg.c_str(), "Error", MB_OK || MB_ICONERROR);
 		exit(1);
 	}
+	config.loadUserData();
+	config.loadKey();
 }
 bool Server::listenForNewConnection() {
 	std::cout << "Waiting..." << std::endl;
@@ -40,11 +42,14 @@ bool Server::listenForNewConnection() {
 		char data[1024];
 		ZeroMemory(data, sizeof(data));
 		recv(newConnect, data, sizeof(data), 0);
-		std::cout << data << std::endl;
-		ZeroMemory(data, sizeof(data));
-		strcpy_s(data, "Hello client");
-		send(newConnect, data, sizeof(data), 0);
-		std::cout << data << std::endl;
+		if (config.checkUsername(std::string(data))) {
+			char sucessMsg[50] = "Connect sucessfully!";
+			send(newConnect, sucessMsg, sizeof(sucessMsg), 0);
+		}
+		else {
+			char errMsg[100] = "Check username again!";
+			send(newConnect, errMsg, sizeof(errMsg), 0);
+		}
 	}
 	return true;
 }
