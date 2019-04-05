@@ -8,6 +8,13 @@
 #include <vector>
 
 SOCKET connection;
+
+void displayMenu() {
+	std::cout << "1. Create room" << std::endl;
+	std::cout << "2. Join room" << std::endl;
+	std::cout << "3. Exit" << std::endl;
+	std::cout << "Enter your choise: ";
+}
 void initSocket(std::string ip, int port) {
 	WSAData wsaData;
 	WORD DllVersion = MAKEWORD(2, 1);
@@ -29,11 +36,18 @@ void initSocket(std::string ip, int port) {
 		return; //Failed to Connect
 	}
 }
+
+void createHandle() {
+	char buffer[1024];
+	ZeroMemory(buffer, sizeof(buffer));
+	while (true) {
+		recv(connection, buffer, sizeof(buffer), 0);
+		std::cout << buffer << std::endl;
+	}
+	ExitThread(0);
+}
 int main() {
-	std::cout << "1. Create room" << std::endl;
-	std::cout << "2. Join room" << std::endl;
-	std::cout << "3. Exit" << std::endl;
-	std::cout << "Enter your choise: ";
+	displayMenu();
 	int userChoise;
 	std::cin >> userChoise;
 	while (userChoise < 0 || userChoise > 3) {
@@ -64,7 +78,26 @@ int main() {
 		send(connection, data, sizeof(data), 0);
 		ZeroMemory(data, sizeof(data));
 		recv(connection, data, sizeof(data), 0);
-		std::cout << data << std::endl;
+		if (strcmp(data, "sucessfully") == 0) {
+			CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)createHandle, NULL, NULL, NULL);
+			while (true) {
+				ZeroMemory(data, sizeof(data));
+				std::cin.getline(data, sizeof(data));
+				if (strcmp(data, "pp") != 0) {
+					send(connection, data, sizeof(data), 0);
+				}
+				else {
+					std::cout << "Exiting..." << std::endl;
+					char msg[4] = "pp";
+					send(connection, msg, sizeof(msg), 0);
+					break;
+					exit(0);
+				}
+			}
+		}
+		else {
+			std::cout << data << std::endl;
+		}
 
 	} if (userChoise == 3) {
 		exit(0);

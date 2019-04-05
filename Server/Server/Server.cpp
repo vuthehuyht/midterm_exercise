@@ -43,8 +43,8 @@ bool Server::listenForNewConnection() {
 		ZeroMemory(data, sizeof(data));
 		recv(newConnect, data, sizeof(data), 0);
 		if (config.checkUsername(std::string(data))) {
-			char sucessMsg[50] = "Connect sucessfully!";
-			send(newConnect, sucessMsg, sizeof(sucessMsg), 0);
+			std::thread t(createHandle, newConnect, std::string(data));
+			t.detach();
 		}
 		else {
 			char errMsg[100] = "Check username again!";
@@ -57,4 +57,10 @@ bool Server::listenForNewConnection() {
 
 Server::~Server()
 {
+}
+
+void Server::createHandle(SOCKET s, std::string username) {
+	Session session;
+	session.addConnection(s, username);
+	session.messageHandle(s);
 }
