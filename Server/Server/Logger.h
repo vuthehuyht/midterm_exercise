@@ -4,14 +4,15 @@
 #include<fstream>
 #include<iostream>
 #include<ctime>
+#include "Session.h"
 class Logger
 {
 public:
-	void WriteMessagse(std::string message, std::string username);
 	Logger();
 	~Logger();
+	void WriteMessagse(std::string message, std::string username, std::string time);
 private:
 	std::fstream f;
-	time_t t;
 };
+static Logger loggerptr;
 

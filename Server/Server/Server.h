@@ -11,7 +11,7 @@ public:
 	Server();
 	bool listenForNewConnection();
 	~Server();
-	static void createHandle(SOCKET s, std::string username);
+	static void createHandle(SOCKET s);
 
 private:
 	SOCKADDR_IN addr;
