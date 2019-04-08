@@ -44,10 +44,11 @@ bool Server::listenForNewConnection() {
 		ZeroMemory(data, sizeof(data));
 		recv(newConnect, data, sizeof(data), 0);
 		if (config.checkUsername(std::string(data))) {
+			sessionptr.addConnection(newConnect, std::string(data));
 			std::cout << "Client connected!" << std::endl;
 			char sucessMsg[15] = "sucessfully";
 			send(newConnect, sucessMsg, sizeof(sucessMsg), 0);
-			std::thread t(createHandle, newConnect, std::string(data));
+			std::thread t(createHandle, newConnect);
 			t.detach();
 		}
 		else {
@@ -63,8 +64,6 @@ Server::~Server()
 {
 }
 
-void Server::createHandle(SOCKET s, std::string username) {
-	Session session;
-	session.addConnection(s, username);
-	session.messageHandle(s);
+void Server::createHandle(SOCKET s) {
+	sessionptr.messageHandle(s);
 }

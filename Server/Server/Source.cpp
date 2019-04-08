@@ -1,10 +1,8 @@
 #include"Server.h"
-#include "Config.h"
-#include"Logger.h"
 #include "User.h"
 int main() {
 	Server server;
-	while (true) {
+	for (int i = 0; i < 100; i++) {
 		server.listenForNewConnection();
 	}
 	system("pause");
