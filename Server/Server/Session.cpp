@@ -11,7 +11,6 @@ Session::~Session()
 
 void Session::addConnection(SOCKET s, std::string username) {
 	connections.insert(std::make_pair(s, username));
-	std::cout << connections.begin()->first << " " << connections.begin()->second << std::endl;
 }
 
 void Session::messageHandle(SOCKET s) {
@@ -22,7 +21,7 @@ void Session::messageHandle(SOCKET s) {
 	while (true) {
 		ZeroMemory(buffer, sizeof(buffer));
 		ZeroMemory(completeMess, sizeof(completeMess));
-		if (recv(s, buffer, sizeof(buffer), 0) != 0) {
+		if (recv(s, buffer, sizeof(buffer), 0) > 0) {
 			std::cout << getTimePrint() << " " << username << " " << buffer << std::endl;
 			loggerptr.WriteMessagse(std::string(buffer), username, getTimeLog());
 			strcat_s(completeMess, username.c_str());
@@ -36,8 +35,15 @@ void Session::messageHandle(SOCKET s) {
 		}
 		else {
 			std::cout << "Client disconnected!" << std::endl;
+			removeConnection(s);
+			std::cout << "Size of connections: " << connections.size() << std::endl;
+			break;
 		}
 	}
+}
+
+void Session::removeConnection(SOCKET s) {
+	connections.erase(s);
 }
 
 void Session::setTime() {
