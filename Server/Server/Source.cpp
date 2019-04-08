@@ -3,7 +3,7 @@
 #include"Logger.h"
 #include "User.h"
 int main() {
-	Server server(1080);
+	Server server;
 	while (true) {
 		server.listenForNewConnection();
 	}

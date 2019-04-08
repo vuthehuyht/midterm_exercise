@@ -2,7 +2,7 @@
 
 
 
-Server::Server(int port){
+Server::Server(){
 	WSAData wsadata;
 	WORD dllVersion = MAKEWORD(2, 1);
 
@@ -10,9 +10,9 @@ Server::Server(int port){
 		MessageBox(NULL, "Winsock start failed", "Error", MB_OK | MB_ICONERROR);
 		exit(1);
 	}
-
-	addr.sin_addr.s_addr = inet_addr("127.0.0.1");  // tao dia chi may chu
-	addr.sin_port = htons(port); //tao cong ket noi
+	config.loadConfigServer();
+	addr.sin_addr.s_addr = inet_addr(config.getIpServer().c_str());  // tao dia chi may chu
+	addr.sin_port = htons(config.getPortServer()); //tao cong ket noi
 	addr.sin_family = AF_INET; //dat loai dia chi ip la ipv4
 
 	// tao socket de lang nghe ket noi den
@@ -28,6 +28,7 @@ Server::Server(int port){
 		MessageBoxA(NULL, errorMsg.c_str(), "Error", MB_OK || MB_ICONERROR);
 		exit(1);
 	}
+	std::cout << config.getIpServer() << ":" << config.getPortServer() << std::endl;
 	config.loadUserData();
 	config.loadKey();
 }
@@ -43,6 +44,9 @@ bool Server::listenForNewConnection() {
 		ZeroMemory(data, sizeof(data));
 		recv(newConnect, data, sizeof(data), 0);
 		if (config.checkUsername(std::string(data))) {
+			std::cout << "Client connected!" << std::endl;
+			char sucessMsg[15] = "sucessfully";
+			send(newConnect, sucessMsg, sizeof(sucessMsg), 0);
 			std::thread t(createHandle, newConnect, std::string(data));
 			t.detach();
 		}

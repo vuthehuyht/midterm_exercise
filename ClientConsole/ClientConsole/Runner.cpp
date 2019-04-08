@@ -51,7 +51,7 @@ int main() {
 	int userChoise;
 	std::cin >> userChoise;
 	while (userChoise < 0 || userChoise > 3) {
-		std::cerr << "Lua chon khong hop le!" << std::endl;
+		std::cerr << "Lua chon khong hop le! Nhap lai: " << std::endl;
 		std::cin >> userChoise;
 	}
 	if (userChoise == 1) {
@@ -81,18 +81,12 @@ int main() {
 		if (strcmp(data, "sucessfully") == 0) {
 			CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)createHandle, NULL, NULL, NULL);
 			while (true) {
-				ZeroMemory(data, sizeof(data));
-				std::cin.getline(data, sizeof(data));
-				if (strcmp(data, "pp") != 0) {
-					send(connection, data, sizeof(data), 0);
-				}
-				else {
-					std::cout << "Exiting..." << std::endl;
-					char msg[4] = "pp";
-					send(connection, msg, sizeof(msg), 0);
-					break;
-					exit(0);
-				}
+				char buffer[1024];
+				ZeroMemory(buffer, sizeof(buffer));
+				std::cin.getline(buffer, sizeof(buffer));
+				if (strcmp(buffer, "") != 0)
+					send(connection, buffer, sizeof(buffer), 0);
+				else continue;
 			}
 		}
 		else {

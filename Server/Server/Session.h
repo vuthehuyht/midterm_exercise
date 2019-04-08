@@ -3,6 +3,7 @@
 #pragma comment(lib,"ws2_32.lib")
 #include<winsock.h>
 #include<map>
+#include<string>
 #include"Logger.h"
 class Session
 {

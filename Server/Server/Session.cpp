@@ -18,13 +18,18 @@ void Session::messageHandle(SOCKET s) {
 	std::string username = connections[s];
 	while (true) {
 		ZeroMemory(buffer, sizeof(buffer));
-		recv(s, buffer, sizeof(buffer), 0);
-		for (std::map<SOCKET, std::string>::iterator i = connections.begin(); i != connections.end(); i++) {
-			if (i->first != s) {
-				logger.WriteMessagse(std::string(buffer), username);
-				strcat_s(buffer, username.c_str());
-				send(i->first, buffer, sizeof(buffer), 0);
+		if (recv(s, buffer, sizeof(buffer), 0) != 0) {
+			strcat_s(buffer, username.c_str());
+			logger.WriteMessagse(std::string(buffer), username);
+			for (std::map<SOCKET, std::string>::iterator i = connections.begin(); i != connections.end(); i++) {
+				if (i->first != s) {
+					send(i->first, buffer, sizeof(buffer), 0);
+					std::cout << buffer << std::endl;
+				}
 			}
+		}
+		else {
+			std::cout << "Client disconnected!" << std::endl;
 		}
 	}
 }

@@ -3,8 +3,9 @@
 #include<fstream>
 #include<string>
 #include<vector>
+#include<sstream>
 #include "User.h"
-using namespace std;
+//using namespace std;
 
 class Config
 {
@@ -15,11 +16,19 @@ public:
 	void loadUserData();
 	void saveUserData();
 	void loadKey();
+	void loadConfigServer();
+
 	bool checkUsername(std::string username);
-	vector<User> getUserData();
+
+	std::vector<User> getUserData();
+	
+	std::string getIpServer();
+	int getPortServer();
 private:
 	std::fstream f;
-	std::vector<string> keyData;
-	vector<User> userData;
+	std::vector<std::string> keyData;
+	std::vector<User> userData;
+	std::string ipServer;
+	int portServer = 0;
 };
 

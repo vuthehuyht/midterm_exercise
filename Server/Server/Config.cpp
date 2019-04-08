@@ -50,10 +50,10 @@ void Config::saveUserData() {
 	if (f.fail())
 		std::cout << "Open file fail" << std::endl;
 	else {
-		for (vector<User>::iterator i = userData.begin(); i != userData.end(); i++) {
-			f << i->getUsername() << endl;
-			f << i->getNickname() << endl;
-			f << i->getRule() << endl;
+		for (std::vector<User>::iterator i = userData.begin(); i != userData.end(); i++) {
+			f << i->getUsername() << std::endl;
+			f << i->getNickname() << std::endl;
+			f << i->getRule() << std::endl;
 		}
 
 	}
@@ -66,23 +66,56 @@ void Config::loadKey() {
 	if (f.fail())
 		std::cout << "Opening file fail" << std::endl;
 	else {
-		string line;
+		std::string line;
 		while (!f.eof()) {
-			getline(f, line);
+			std::getline(f, line);
 			keyData.push_back(line);
 		}
 	}
 	f.close();
 }
 
+void Config::loadConfigServer() {
+	std::string data;
+	f.open("configServer.txt", std::ios::in);
+
+	if (f.fail())
+		std::cerr << "Opening file fail" << std::endl;
+	else {
+		int index = 1;
+		while (!f.eof()) {
+			std::getline(f, data);
+			if (index == 1) {
+				ipServer = data;
+				index++;
+				continue;
+			}
+			if (index == 2) {
+				std::stringstream ss(data);
+				ss >> portServer;
+				index = 1;
+			}
+		}
+		f.close();
+	}
+}
+
 bool Config::checkUsername(std::string username) {
-	for (vector<User>::iterator i = userData.begin(); i != userData.end(); i++) {
-		if (username.compare(string(i->getUsername())) == 0)
+	for (std::vector<User>::iterator i = userData.begin(); i != userData.end(); i++) {
+		if (username.compare(std::string(i->getUsername())) == 0)
 			return true;
 	}
 	return false;
 }
 
-vector<User> Config::getUserData() {
+std::vector<User> Config::getUserData() {
 	return userData;
+}
+
+std::string Config::getIpServer() {
+	return ipServer;
+}
+
+int Config::getPortServer() {
+	return portServer;
 }
