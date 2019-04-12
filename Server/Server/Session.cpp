@@ -16,7 +16,7 @@ void Session::addConnection(SOCKET s, std::string username) {
 void Session::messageHandle(SOCKET s) {
 	char buffer[1024];
 	std::string username = connections[s];
-	char completeMess[2048];
+	char completeMess[1024];
 
 	while (true) {
 		ZeroMemory(buffer, sizeof(buffer));
@@ -27,6 +27,7 @@ void Session::messageHandle(SOCKET s) {
 			strcat_s(completeMess, username.c_str());
 			strcat_s(completeMess, ": ");
 			strcat_s(completeMess, buffer);
+			
 			for (std::map<SOCKET, std::string>::iterator i = connections.begin(); i != connections.end(); i++) {
 				if (i->first != s) {
 					send(i->first, completeMess, sizeof(completeMess), 0);

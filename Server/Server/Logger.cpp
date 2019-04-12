@@ -17,4 +17,5 @@ void Logger::WriteMessagse(std::string message, std::string username, std::strin
 		std::cerr << "Opening file failed!" << std::endl;
 	else
 		f << time << " " << username << " " << message << std::endl;
+	f.close();
 }
