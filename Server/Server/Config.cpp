@@ -1,7 +1,5 @@
 #include "Config.h"
 
-
-
 Config::Config()
 {
 }
@@ -9,70 +7,6 @@ Config::Config()
 
 Config::~Config()
 {
-}
-void Config::loadUserData() {
-	std::string data;
-	f.open("userData.txt", std::ios::in);
-
-	if (f.fail())
-		std::cout << "Opening file fail" << std::endl;
-	else {
-		int i = 1;
-		User user;
-		while (!f.eof()) {
-			getline(f, data);
-			char dataTemp[100];
-			strcpy_s(dataTemp, data.c_str());
-			if (i == 1) {
-				user.setUsername(dataTemp);	
-				i++;
-				continue;
-			} 
-			else if (i == 2) {
-				user.setNickname(dataTemp);
-				i++;
-				continue;
-			}
-			else if (i == 3) {
-				user.setRule(dataTemp);
-				i++;
-				if (i == 4) {
-					userData.push_back(user);
-					i = 1;
-				}
-			}
-		}
-	}
-	f.close();
-}
-void Config::saveUserData() {
-	f.open("testData.txt", std::ios::out);
-	if (f.fail())
-		std::cout << "Open file fail" << std::endl;
-	else {
-		for (std::vector<User>::iterator i = userData.begin(); i != userData.end(); i++) {
-			f << i->getUsername() << std::endl;
-			f << i->getNickname() << std::endl;
-			f << i->getRule() << std::endl;
-		}
-
-	}
-
-}
-void Config::loadKey() {
-	std::string data;
-	f.open("keyData.txt", std::ios::in);
-
-	if (f.fail())
-		std::cout << "Opening file fail" << std::endl;
-	else {
-		std::string line;
-		while (!f.eof()) {
-			std::getline(f, line);
-			keyData.push_back(line);
-		}
-	}
-	f.close();
 }
 
 void Config::loadConfigServer() {
@@ -101,15 +35,93 @@ void Config::loadConfigServer() {
 }
 
 bool Config::checkUsername(std::string username) {
-	for (std::vector<User>::iterator i = userData.begin(); i != userData.end(); i++) {
-		if (username.compare(std::string(i->getUsername())) == 0)
+	for (std::vector<std::string>::iterator i = memberData.begin(); i != memberData.end(); i++) {
+		if (username.compare(i->data()) == 0)
 			return true;
 	}
 	return false;
 }
+void Config::loadFilterList() {
+	std::string data;
+	f.open("filterData.txt", std::ios::in);
 
-std::vector<User> Config::getUserData() {
-	return userData;
+	if (f.fail())
+		std::cout << "Opening file fail" << std::endl;
+	else {
+		int index = 1;
+		std::string key, value;
+		while (!f.eof()) {
+			std::getline(f, data);
+			if (index == 1) {
+				key = data;
+				index++;
+				continue;
+			}
+			if (index == 2) {
+				value = data;
+				index = 1;
+				continue;
+			}
+		}
+		f.close();
+	}
+}
+void Config::loadBanList(){
+	f.open("banData.txt", std::ios::in);
+
+	if (f.fail())
+		std::cout << "Opening file fail" << std::endl;
+	else {
+		std::string line;
+		while (!f.eof()) {
+			std::getline(f, line);
+			banData.push_back(line);
+		}
+	}
+	f.close();
+}
+void Config::loadModList() {
+	f.open("banData.txt", std::ios::in);
+
+	if (f.fail())
+		std::cout << "Opening file fail" << std::endl;
+	else {
+		std::string line;
+		while (!f.eof()) {
+			std::getline(f, line);
+			modData.push_back(line);
+		}
+	}
+	f.close();
+}
+void Config::loadMemberList() {
+	f.open("banData.txt", std::ios::in);
+
+	if (f.fail())
+		std::cout << "Opening file fail" << std::endl;
+	else {
+		std::string line;
+		while (!f.eof()) {
+			std::getline(f, line);
+			memberData.push_back(line);
+		}
+	}
+	f.close();
+}
+std::vector<std::string> Config::getMemberList() {
+	return memberData;
+}
+
+std::vector<std::string> Config::getBanList() {
+	return banData;
+}
+
+std::vector<std::string> Config::getModList() {
+	return modData;
+}
+
+std::map<std::string, std::string> Config::getFilterList() {
+	return filterData;
 }
 
 std::string Config::getIpServer() {
