@@ -11,17 +11,26 @@ Room::~Room()
 {
 }
 void Room::getFilterList() {
-	filterData = config.getFilterList();
+	configptr.loadFilterList();
+	filterData = configptr.getFilterList();
 }
 void Room::getBanList() {
-	banData = config.getBanList();
-
+	configptr.loadBanList();
+	banData = configptr.getBanList();
 }
 void Room::getModList() {
-	modData = config.getModList();
-
+	configptr.getModList();
+	modData = configptr.getModList();
 }
 void Room::getMemberList() {
-	memberData = config.getMemberList();
+	configptr.loadMemberList();
+	memberData = configptr.getMemberList();
+}
 
+bool Room::checkUsername(std::string username) {
+	for (std::vector<std::string>::iterator i = memberData.begin(); i != memberData.end(); i++) {
+		if (username.compare(i->data()) == 0)
+			return true;
+	}
+	return false;
 }

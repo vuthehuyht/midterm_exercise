@@ -20,8 +20,6 @@ public:
 	void loadModList();
 	void loadMemberList();
 
-	bool checkUsername(std::string username);
-
 	std::vector<std::string> getMemberList();
 	std::map<std::string, std::string> getFilterList();
 	std::vector<std::string> getModList();
@@ -40,4 +38,5 @@ private:
 	std::string ipServer;
 	int portServer = 0;
 };
+static Config configptr;
 

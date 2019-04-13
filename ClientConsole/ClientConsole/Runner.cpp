@@ -46,6 +46,13 @@ void createHandle() {
 	}
 	ExitThread(0);
 }
+
+void sendUserChoise(int choise) {
+	char* userChoiseTemp = new char[2];
+	_itoa(choise, userChoiseTemp, 10);
+	send(connection, userChoiseTemp, sizeof(userChoiseTemp), 0);
+	delete userChoiseTemp;
+}
 int main() {
 	displayMenu();
 	int userChoise;
@@ -55,25 +62,57 @@ int main() {
 		std::cin >> userChoise;
 	}
 	if (userChoise == 1) {
+		char data[100];
+		ZeroMemory(data, sizeof(data));
+
+		std::cout << "Enter your username: ";
+		std::cin.ignore();
+		std::cin.get(data, 100);
+
 		initSocket("127.0.0.1", 1080);
+		sendUserChoise(userChoise);
+
+		system("cls");
+
+		send(connection, data, sizeof(data), 0);
+		ZeroMemory(data, sizeof(data));
+		recv(connection, data, sizeof(data), 0);
+
+		if (strcmp(data, "sucessfully") == 0) {
+			CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)createHandle, NULL, NULL, NULL);
+			while (true) {
+				char buffer[1024];
+				ZeroMemory(buffer, sizeof(buffer));
+				std::cin.getline(buffer, sizeof(buffer));
+				if (strcmp(buffer, "") != 0)
+					send(connection, buffer, sizeof(buffer), 0);
+				else continue;
+			}
+		}
+		else {
+			std::cout << data << std::endl;
+		}
 	}
 	if (userChoise == 2) {
 		std::string ip;
 		int port;
+
 		std::cin.ignore();
 		std::cout << "Enter server IP: ";
 		getline(std::cin, ip);
 		std::cout << "Enter port: ";
 		std::cin >> port;
 
-		system("cls");
+		initSocket(ip, port);
+		sendUserChoise(userChoise);
+
 		char data[1024];
 		ZeroMemory(data, sizeof(data));
+
 		std::cin.ignore();
 		std::cout << "Enter your username: ";
 		std::cin.get(data, 1024);
-
-		initSocket(ip, port);
+		system("cls");
 
 		send(connection, data, sizeof(data), 0);
 		ZeroMemory(data, sizeof(data));
