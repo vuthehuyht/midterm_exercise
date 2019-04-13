@@ -15,6 +15,8 @@ public:
 	void getModList();
 	void getMemberList();
 
+	bool checkUsername(std::string username);
+
 private:
 
 	//Owner owner;
@@ -23,6 +25,5 @@ private:
 	std::vector<std::string> modData;
 	std::vector<std::string> memberData;
 	
-	Config config;
 };
 

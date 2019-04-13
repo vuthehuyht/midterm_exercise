@@ -34,13 +34,6 @@ void Config::loadConfigServer() {
 	}
 }
 
-bool Config::checkUsername(std::string username) {
-	for (std::vector<std::string>::iterator i = memberData.begin(); i != memberData.end(); i++) {
-		if (username.compare(i->data()) == 0)
-			return true;
-	}
-	return false;
-}
 void Config::loadFilterList() {
 	std::string data;
 	f.open("filterData.txt", std::ios::in);
@@ -95,7 +88,7 @@ void Config::loadModList() {
 	f.close();
 }
 void Config::loadMemberList() {
-	f.open("banData.txt", std::ios::in);
+	f.open("userData.txt", std::ios::in);
 
 	if (f.fail())
 		std::cout << "Opening file fail" << std::endl;
