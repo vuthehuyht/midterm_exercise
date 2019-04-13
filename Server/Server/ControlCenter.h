@@ -1,6 +1,5 @@
 #pragma once
 #include<queue>
-#include<iostream>
 class ControlCenter
 {
 public:

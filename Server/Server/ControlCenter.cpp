@@ -19,6 +19,5 @@ std::string ControlCenter::getMessage() {
 	std::string mess;
 	mess = messages.front();
 	messages.pop();
-	std::cout << messages.size() << std::endl;
 	return mess;
 }

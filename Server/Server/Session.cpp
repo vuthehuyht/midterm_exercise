@@ -27,9 +27,13 @@ void Session::messageHandle(SOCKET s) {
 			strcat_s(completeMess, username.c_str());
 			strcat_s(completeMess, ": ");
 			strcat_s(completeMess, buffer);
+			controlptr.addMessage(std::string(completeMess));
 			for (std::map<SOCKET, std::string>::iterator i = connections.begin(); i != connections.end(); i++) {
 				if (i->first != s) {
-					send(i->first, completeMess, sizeof(completeMess), 0);
+					char temp[1024];
+					ZeroMemory(temp, sizeof(temp));
+					strcpy(temp, controlptr.getMessage().c_str());
+					send(i->first, temp, sizeof(temp), 0);
 				}
 			}
 		}

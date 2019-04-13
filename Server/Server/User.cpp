@@ -17,10 +17,7 @@ char* User::getNickname() {
 	char* res = nickname;
 	return res;
 }
-char* User::getRule() {
-	char* res = rule;
-	return res;
-}
+
 void User::setUsername(char _username[]) {
 	strcpy_s(username, _username);
 }
@@ -29,6 +26,6 @@ void User::setNickname(char _nickname[]) {
 	strcpy_s(nickname, _nickname);
 }
 
-void User::setRule(char _rule[]) {
-	strcpy_s(rule, _rule);
+void User::leave() {
+	User::online_status::OFFLINE;
 }
