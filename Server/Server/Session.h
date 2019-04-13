@@ -8,6 +8,7 @@
 #include<ctime>
 #include<sstream>
 #include"Logger.h"
+#include"ControlCenter.h"
 class Session
 {
 public:
@@ -16,6 +17,7 @@ public:
 	void addConnection(SOCKET s, std::string username);
 	void messageHandle(SOCKET s);
 	void removeConnection(SOCKET s);
+
 	std::string getTimeLog();
 	std::string getTimePrint();
 

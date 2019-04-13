@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Config.h" />
+    <ClInclude Include="ControlCenter.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="Server.h" />
@@ -124,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Config.cpp" />
+    <ClCompile Include="ControlCenter.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="Server.cpp" />
