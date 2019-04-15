@@ -29,3 +29,7 @@ void User::setNickname(char _nickname[]) {
 void User::leave() {
 	User::online_status::OFFLINE;
 }
+
+void User::viewNickname() {
+	std::cout << nickname << std::endl;
+}

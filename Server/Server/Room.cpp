@@ -34,3 +34,11 @@ bool Room::checkUsername(std::string username) {
 	}
 	return false;
 }
+
+void Room::displayModOwner() {
+	
+}
+
+void Room::setRules(std::string rules) {
+	ruleChat = rules;
+}
