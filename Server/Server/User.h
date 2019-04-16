@@ -16,11 +16,11 @@ public:
 		UNBAN,
 	};
 
-	char* getUsername();
-	char* getNickname();
+	std::string getUsername();
+	std::string getNickname();
 
-	void setUsername(char _username[]);
-	void setNickname(char _nickname[]);
+	void setUsername(std::string _username);
+	void setNickname(std::string _nickname);
 	void leave();
 	void info();
 	void mods();
@@ -28,7 +28,7 @@ public:
 
 protected:
 
-	char username[50];
-	char nickname[50];
+	std::string username;
+	std::string nickname;
 };
 

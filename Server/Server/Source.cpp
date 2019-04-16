@@ -1,10 +1,9 @@
 #include"Server.h"
-
+#include "Owner.h"
 int main() {
-	Server server;
-	for (int i = 0; i < 100; i++) {
-		server.listenForNewConnection();
-	}
+	Owner o;
+	o.setNickname("huy");
+	std::cout << o.getNickname() << std::endl;
 	system("pause");
 	return 0;
 }

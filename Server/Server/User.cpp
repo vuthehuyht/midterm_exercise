@@ -8,22 +8,20 @@ User::User()
 
 User::~User(){}
 
-char* User::getUsername() {
-	char* res = username;
-	return res;
+std::string User::getUsername() {
+	return username;
 }
 
-char* User::getNickname() {
-	char* res = nickname;
-	return res;
+std::string User::getNickname() {
+	return nickname;
 }
 
-void User::setUsername(char _username[]) {
-	strcpy_s(username, _username);
+void User::setUsername(std::string _username) {
+	username = _username;
 }
 
-void User::setNickname(char _nickname[]) {
-	strcpy_s(nickname, _nickname);
+void User::setNickname(std::string _nickname) {
+	nickname = _nickname;
 }
 
 void User::leave() {
@@ -32,4 +30,8 @@ void User::leave() {
 
 void User::viewNickname() {
 	std::cout << nickname << std::endl;
+}
+
+void User::info() {
+
 }

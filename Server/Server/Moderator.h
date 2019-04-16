@@ -1,6 +1,6 @@
 #pragma once
 #include"User.h"
-class Moderator : User
+class Moderator : public User
 {
 public:
 	Moderator();

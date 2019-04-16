@@ -2,7 +2,7 @@
 #include"User.h"
 #include"Moderator.h"
 #include"Room.h"
-class Owner : User, Moderator
+class Owner : public User
 {
 public:
 	Owner();

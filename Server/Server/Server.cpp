@@ -64,6 +64,14 @@ bool Server::listenForNewConnection() {
 
 			}
 		}
+
+		if (strcmp(data, "1") == 0) {
+			ZeroMemory(data, sizeof(data));
+			recv(newConnect, data, sizeof(data), 0);
+			if (room.checkUsername(std::string(data))) {
+
+			}
+		}
 	}
 	return true;
 }
