@@ -33,5 +33,13 @@ void User::viewNickname() {
 }
 
 void User::info() {
+	
+}
 
+void User::createTime() {
+	t = time(0);
+	struct tm* time_info = localtime(&t);
+	char buffer[80];
+	strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", time_info);
+	timeCreattion = std::string(buffer);
 }

@@ -1,9 +1,8 @@
 #include"Server.h"
-#include "Owner.h"
+#include "Room.h"
 int main() {
-	Owner o;
-	o.setNickname("huy");
-	std::cout << o.getNickname() << std::endl;
+	roomptr.createInforRoom("Huy");
+	
 	system("pause");
 	return 0;
 }

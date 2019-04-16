@@ -1,9 +1,11 @@
+#define _CRT_SECURE_NO_WARNINGS
 #pragma once
 #include<iostream>
 #include<string>
 #include<vector>
 #include<map>
 #include<fstream>
+#include<ctime>
 #include "Config.h"
 #include "Owner.h"
 class Room
@@ -27,9 +29,11 @@ public:
 	void removeModUser(std::string username);
 	void addFilterWord(std::string keyword, std::string replace_keyword);
 	void removeFilterWord(std::string keyword);
+
+	void createInforRoom(std::string username);
+	void getInforRoom();
 private:
 
-//	Owner owner;
 	std::map<std::string, std::string> filterData;
 	std::vector<std::string> banData;
 	std::vector<std::string> modData;
@@ -38,10 +42,13 @@ private:
 	std::string timeCreattion;
 	std::string ruleChat;
 
+	time_t t;
+
 private:
 	void saveBanList();
 	void saveModList();
 	void saveFilterList();
+	void createTime();
 };
 static Room roomptr;
 

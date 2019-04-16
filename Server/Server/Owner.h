@@ -1,8 +1,6 @@
 #pragma once
-#include"User.h"
 #include"Moderator.h"
-#include"Room.h"
-class Owner : public User
+class Owner : public Moderator
 {
 public:
 	Owner();
@@ -13,5 +11,9 @@ public:
 	void unbanUser(std::string username);
 	void modUser(std::string username);
 	void unModUser(std::string username);
+
+private:
+
 };
+static Owner ownerptr;
 

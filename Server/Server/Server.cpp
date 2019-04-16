@@ -69,7 +69,13 @@ bool Server::listenForNewConnection() {
 			ZeroMemory(data, sizeof(data));
 			recv(newConnect, data, sizeof(data), 0);
 			if (room.checkUsername(std::string(data))) {
-
+				sessionptr.addConnection(newConnect, std::string(data));
+				roomptr.createInforRoom(std::string(data));
+				std::cout << "Client connected!" << std::endl;
+				char sucessMsg[15] = "sucessfully";
+				send(newConnect, sucessMsg, sizeof(sucessMsg), 0);
+				std::thread t(createHandle, newConnect);
+				t.detach();
 			}
 		}
 	}
