@@ -1,6 +1,6 @@
 #include "Room.h"
 
-
+Room *Room::_instance = 0;
 
 Room::Room()
 {
@@ -11,14 +11,13 @@ Room::~Room()
 {
 }
 
-Room* Room::_roomptr = NULL;
-
 Room* Room::getIntance() {
-	if (_roomptr == NULL) {
-		_roomptr = new Room();
+	if (_instance == NULL) {
+		_instance = new Room();
 	}
-	return _roomptr;
+	return _instance;
 }
+
 void Room::getFilterList() {
 	configptr.loadFilterList();
 	filterData = configptr.getFilterList();
@@ -150,8 +149,20 @@ void Room::createInforRoom(std::string username) {
 	createTime();
 }
 
-void Room::getInforRoom() {
-	std::cout << "Owner: " << ownerUsername << std::endl;
-	std::cout << "Time created: " << timeCreattion << std::endl;
-	std::cout << "Rules: " << ruleChat << std::endl;
+std::string Room::getOwner() {
+	std::string res;
+	res = "Owner: " + ownerUsername;
+	return res;
+}
+
+std::string Room::getTimeCreation() {
+	std::string res;
+	res = "Time created: " + timeCreattion;
+	return res;
+}
+
+std::string Room::getRuleChat() {
+	std::string res;
+	res ="Rules: "+ ruleChat;
+	return res;
 }

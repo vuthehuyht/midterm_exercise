@@ -11,11 +11,14 @@
 class Room
 {
 public:
+	Room();
+	~Room();
 	static Room* getIntance();
 	void getFilterList();
 	void getBanList();
 	void getModList();
 	void getMemberList();
+	std::vector<std::string> shareMemberList();
 
 	bool checkUsername(std::string username);
 	void displayModOwner();
@@ -29,14 +32,16 @@ public:
 	void removeFilterWord(std::string keyword);
 
 	void createInforRoom(std::string username);
-	void getInforRoom();
+	std::string getOwner();
+	std::string getTimeCreation();
+	std::string getRuleChat();
 private:
-	std::string ownerUsername;
 	std::map<std::string, std::string> filterData;
 	std::vector<std::string> banData;
 	std::vector<std::string> modData;
 	std::vector<std::string> memberData;
 
+	std::string ownerUsername;
 	std::string timeCreattion;
 	std::string ruleChat;
 
@@ -48,9 +53,7 @@ private:
 	void saveFilterList();
 	void createTime();
 
-private:
-	static Room* _roomptr;
-	Room();
-	~Room();
+protected:
+	static Room* _instance;
 };
 
