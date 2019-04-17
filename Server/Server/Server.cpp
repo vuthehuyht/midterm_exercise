@@ -29,10 +29,10 @@ Server::Server(){
 		exit(1);
 	}
 
-	room.getMemberList();
-	room.getBanList();
-	room.getFilterList();
-	room.getModList();
+	room->getIntance()->getMemberList();
+	room->getIntance()->getBanList();
+	room->getIntance()->getFilterList();
+	room->getIntance()->getModList();
 
 	std::cout << config.getIpServer() << ":" << config.getPortServer() << std::endl;
 }
@@ -50,7 +50,7 @@ bool Server::listenForNewConnection() {
 		if (strcmp(data, "2") == 0) {
 			ZeroMemory(data, sizeof(data));
 			recv(newConnect, data, sizeof(data), 0);
-			if (room.checkUsername(std::string(data))) {
+			if (room->getIntance()->checkUsername(std::string(data))) {
 				sessionptr.addConnection(newConnect, std::string(data));
 				std::cout << "Client connected!" << std::endl;
 				char sucessMsg[15] = "sucessfully";
@@ -68,9 +68,9 @@ bool Server::listenForNewConnection() {
 		if (strcmp(data, "1") == 0) {
 			ZeroMemory(data, sizeof(data));
 			recv(newConnect, data, sizeof(data), 0);
-			if (room.checkUsername(std::string(data))) {
+			if (room->getIntance()->checkUsername(std::string(data))) {
 				sessionptr.addConnection(newConnect, std::string(data));
-				roomptr.createInforRoom(std::string(data));
+				room->getIntance()->createInforRoom(std::string(data));
 				std::cout << "Client connected!" << std::endl;
 				char sucessMsg[15] = "sucessfully";
 				send(newConnect, sucessMsg, sizeof(sucessMsg), 0);

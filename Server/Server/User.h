@@ -7,27 +7,27 @@
 #include<map>
 #include<fstream>
 #include "Room.h"
+
+enum online_status {
+	OFFLINE,
+	ONLINE,
+};
+
+enum member_status {
+	BAN,
+	UNBAN,
+};
+
+enum Type {
+	ADMIN,
+	MODERATOR,
+	NORMAL,
+};
 class User
 {
 public:
 	User();
 	~User();
-
-	enum online_status {
-		OFFLINE,
-		ONLINE,
-	};
-
-	enum member_status {
-		BAN,
-		UNBAN,
-	};
-
-	enum Type {
-		ADMIN,
-		MODERATOR,
-		NORMAL,
-	};
 
 	std::string getUsername();
 	std::string getNickname();
@@ -45,5 +45,6 @@ private:
 	Type t;
 	online_status os;
 	member_status ms;
+	Room* rptr;
 };
 

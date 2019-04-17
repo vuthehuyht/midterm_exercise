@@ -1,9 +1,10 @@
 #include"Server.h"
 #include "Room.h"
+#include "User.h"
 int main() {
-	roomptr.createInforRoom("Huy");
-	User u;
-	u.info();
+	Room* r;
+	r->getIntance()->createInforRoom("Huy");
+
 	system("pause");
 	return 0;
 }

@@ -10,6 +10,15 @@ Room::Room()
 Room::~Room()
 {
 }
+
+Room* Room::_roomptr = NULL;
+
+Room* Room::getIntance() {
+	if (_roomptr == NULL) {
+		_roomptr = new Room();
+	}
+	return _roomptr;
+}
 void Room::getFilterList() {
 	configptr.loadFilterList();
 	filterData = configptr.getFilterList();

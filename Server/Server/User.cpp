@@ -25,7 +25,7 @@ void User::setNickname(std::string _nickname) {
 }
 
 void User::leave() {
-	User::online_status::OFFLINE;
+	os = OFFLINE;
 }
 
 void User::viewNickname() {
@@ -33,7 +33,7 @@ void User::viewNickname() {
 }
 
 void User::info() {
-	roomptr.getInforRoom();
+	rptr->getIntance()->getInforRoom();
 }
 
 void User::setAdmin() {

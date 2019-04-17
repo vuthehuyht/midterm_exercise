@@ -11,9 +11,7 @@
 class Room
 {
 public:
-	Room();
-	~Room();
-	
+	static Room* getIntance();
 	void getFilterList();
 	void getBanList();
 	void getModList();
@@ -49,6 +47,10 @@ private:
 	void saveModList();
 	void saveFilterList();
 	void createTime();
+
+private:
+	static Room* _roomptr;
+	Room();
+	~Room();
 };
-static Room roomptr;
 
