@@ -28,9 +28,13 @@ Server::Server(){
 		MessageBoxA(NULL, errorMsg.c_str(), "Error", MB_OK || MB_ICONERROR);
 		exit(1);
 	}
+
+	room.getMemberList();
+	room.getBanList();
+	room.getFilterList();
+	room.getModList();
+
 	std::cout << config.getIpServer() << ":" << config.getPortServer() << std::endl;
-	config.loadUserData();
-	config.loadKey();
 }
 bool Server::listenForNewConnection() {
 	std::cout << "Waiting..." << std::endl;
@@ -40,14 +44,13 @@ bool Server::listenForNewConnection() {
 		return false;
 	}
 	else {
-		
 		char data[1024];
 		ZeroMemory(data, sizeof(data));
 		recv(newConnect, data, sizeof(data), 0);
 		if (strcmp(data, "2") == 0) {
 			ZeroMemory(data, sizeof(data));
 			recv(newConnect, data, sizeof(data), 0);
-			if (config.checkUsername(std::string(data))) {
+			if (room.checkUsername(std::string(data))) {
 				sessionptr.addConnection(newConnect, std::string(data));
 				std::cout << "Client connected!" << std::endl;
 				char sucessMsg[15] = "sucessfully";

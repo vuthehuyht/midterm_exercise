@@ -16,7 +16,7 @@ void Session::addConnection(SOCKET s, std::string username) {
 void Session::messageHandle(SOCKET s) {
 	char buffer[1024];
 	std::string username = connections[s];
-	char completeMess[2048];
+	char completeMess[1024];
 
 	while (true) {
 		ZeroMemory(buffer, sizeof(buffer));

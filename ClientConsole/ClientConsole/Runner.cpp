@@ -68,7 +68,7 @@ int main() {
 		std::cout << "Enter your username: ";
 		std::cin.ignore();
 		std::cin.get(data, 100);
-		
+
 		initSocket("127.0.0.1", 1080);
 		sendUserChoise(userChoise);
 

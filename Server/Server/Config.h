@@ -4,6 +4,7 @@
 #include<string>
 #include<vector>
 #include<sstream>
+#include<map>
 #include "User.h"
 //using namespace std;
 
@@ -13,22 +14,29 @@ public:
 	Config();
 	~Config();
 
-	void loadUserData();
-	void saveUserData();
-	void loadKey();
 	void loadConfigServer();
+	void loadFilterList();
+	void loadBanList();
+	void loadModList();
+	void loadMemberList();
 
-	bool checkUsername(std::string username);
-
-	std::vector<User> getUserData();
-	
+	std::vector<std::string> getMemberList();
+	std::map<std::string, std::string> getFilterList();
+	std::vector<std::string> getModList();
+	std::vector<std::string> getBanList();
 	std::string getIpServer();
 	int getPortServer();
+	
 private:
 	std::fstream f;
-	std::vector<std::string> keyData;
-	std::vector<User> userData;
+
+	std::map<std::string,std::string> filterData;
+	std::vector<std::string >banData;
+	std::vector<std::string> modData;
+	std::vector<std::string> memberData;
+	
 	std::string ipServer;
 	int portServer = 0;
 };
+static Config configptr;
 
