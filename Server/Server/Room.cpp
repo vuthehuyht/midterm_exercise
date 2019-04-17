@@ -29,7 +29,7 @@ void Room::getBanList() {
 }
 
 void Room::getModList() {
-	configptr.getModList();
+	configptr.loadModList();
 	modData = configptr.getModList();
 }
 
@@ -165,4 +165,8 @@ std::string Room::getRuleChat() {
 	std::string res;
 	res ="Rules: "+ ruleChat;
 	return res;
+}
+
+std::vector<std::string> Room::getModData() {
+	return modData;
 }

@@ -18,7 +18,6 @@ public:
 	void getBanList();
 	void getModList();
 	void getMemberList();
-	std::vector<std::string> shareMemberList();
 
 	bool checkUsername(std::string username);
 	void displayModOwner();
@@ -30,6 +29,8 @@ public:
 	void removeModUser(std::string username);
 	void addFilterWord(std::string keyword, std::string replace_keyword);
 	void removeFilterWord(std::string keyword);
+
+	std::vector<std::string> getModData();
 
 	void createInforRoom(std::string username);
 	std::string getOwner();

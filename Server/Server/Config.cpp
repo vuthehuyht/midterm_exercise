@@ -74,7 +74,7 @@ void Config::loadBanList(){
 	f.close();
 }
 void Config::loadModList() {
-	f.open("banData.txt", std::ios::in);
+	f.open("modData.txt", std::ios::in);
 
 	if (f.fail())
 		std::cout << "Opening file fail" << std::endl;

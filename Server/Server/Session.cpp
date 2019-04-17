@@ -56,6 +56,18 @@ void Session::messageHandle(SOCKET s) {
 				std::vector<std::string>::iterator second = splitedMessage.begin() + 1;
 				temp.setNickname(second->data());
 			}
+			else if (strcmp(first->data(), "/mods") == 0) {
+				strcat_s(completeMess, Room::getIntance()->getOwner().c_str());
+				strcat_s(completeMess, "\n");
+				strcat_s(completeMess, "Mods: ");
+				std::vector<std::string> temp = Room::getIntance()->getModData();
+				for (std::vector<std::string>::iterator i = temp.begin(); i != temp.end(); i++) {
+					strcat_s(completeMess, i->c_str());
+					strcat_s(completeMess, ",");
+				}
+				send(s, completeMess, sizeof(completeMess), 0);
+				ZeroMemory(completeMess, sizeof(completeMess));
+			}
 			else {
 				strcat_s(completeMess, username.c_str());
 				strcat_s(completeMess, ": ");
