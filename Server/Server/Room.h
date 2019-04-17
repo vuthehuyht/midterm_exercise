@@ -7,7 +7,7 @@
 #include<fstream>
 #include<ctime>
 #include "Config.h"
-#include "Owner.h"
+
 class Room
 {
 public:
@@ -33,7 +33,7 @@ public:
 	void createInforRoom(std::string username);
 	void getInforRoom();
 private:
-
+	std::string ownerUsername;
 	std::map<std::string, std::string> filterData;
 	std::vector<std::string> banData;
 	std::vector<std::string> modData;

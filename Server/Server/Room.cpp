@@ -137,12 +137,12 @@ void Room::createTime() {
 }
 
 void Room::createInforRoom(std::string username) {
-	ownerptr.setUsername(username);
+	ownerUsername = username;
 	createTime();
 }
 
 void Room::getInforRoom() {
-	std::cout << "Owner: " << ownerptr.getUsername() << std::endl;
+	std::cout << "Owner: " << ownerUsername << std::endl;
 	std::cout << "Time created: " << timeCreattion << std::endl;
 	std::cout << "Rules: " << ruleChat << std::endl;
 }

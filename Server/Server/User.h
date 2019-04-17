@@ -6,7 +6,7 @@
 #include<vector>
 #include<map>
 #include<fstream>
-#include "Owner.h"
+#include "Room.h"
 class User
 {
 public:
@@ -23,6 +23,12 @@ public:
 		UNBAN,
 	};
 
+	enum Type {
+		ADMIN,
+		MODERATOR,
+		NORMAL,
+	};
+
 	std::string getUsername();
 	std::string getNickname();
 
@@ -32,17 +38,12 @@ public:
 	void info();
 	void mods();
 	void viewNickname();
-
-protected:
-
+	void setAdmin();
+private:
 	std::string username;
 	std::string nickname;
-	
-	time_t t;
-	std::string timeCreattion;
-	std::string ruleChat;
-protected:
-	void getInforRoom();
-	void createTime();
+	Type t;
+	online_status os;
+	member_status ms;
 };
 

@@ -36,12 +36,6 @@
     <ClInclude Include="ControlCenter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Owner.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Moderator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Server.cpp">
@@ -66,12 +60,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ControlCenter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Owner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Moderator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
