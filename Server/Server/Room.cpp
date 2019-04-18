@@ -60,9 +60,13 @@ void Room::addBanUser(std::string username) {
 }
 
 void Room::removeBanUser(std::string username) {
-	for (std::vector<std::string>::iterator i = banData.begin(); i != banData.end(); i++) {
-		if (username.compare(i->data()) == 0) {
-			banData.erase(i);
+	if (banData.size() == 1) {
+		banData.erase(banData.begin());
+	}
+	else {
+		for (std::vector<std::string>::iterator i = banData.begin(); i != banData.end(); i++) {
+			if (i->compare(username) == 0)
+				banData.erase(i);
 		}
 	}
 	saveBanList();
@@ -74,9 +78,13 @@ void Room::addModUser(std::string username) {
 }
 
 void Room::removeModUser(std::string username) {
-	for (std::vector<std::string>::iterator i = modData.begin(); i != modData.end(); i++) {
-		if (username.compare(i->data()) == 0) {
-			modData.erase(i);
+	if (modData.size() == 1)
+		modData.erase(modData.begin());
+	else {
+		for (std::vector<std::string>::iterator i = modData.begin(); i != modData.end(); i++) {
+			if (i->compare(username) == 0) {
+				modData.erase(i);
+			}
 		}
 	}
 	saveModList();
@@ -169,4 +177,45 @@ std::string Room::getRuleChat() {
 
 std::vector<std::string> Room::getModData() {
 	return modData;
+}
+bool Room::checkModUser(std::string username) {
+	for (std::vector<std::string>::iterator i = modData.begin(); i != modData.end(); i++) {
+		if (username.compare(i->data()) == 0)
+			return true;
+	}
+	return false;
+}
+
+void Room::removeLeftUser(std::string username) {
+	if (memberData.size() == 1)
+		memberData.erase(memberData.begin());
+	else {
+		for (std::vector<std::string>::iterator i = memberData.begin(); i != memberData.end(); i++) {
+			if (i->compare(username) == 0)
+				memberData.erase(i);
+		}
+	}
+	saveMemberList();
+}
+
+void Room::saveMemberList() {
+	std::fstream f;
+	f.open("userData.txt", std::ios::out);
+
+	if (f.fail())
+		std::cerr << "Opening file failed!" << std::endl;
+	else {
+		for (std::vector<std::string>::iterator i = memberData.begin(); i != memberData.end(); i++) {
+			f << i->data() << std::endl;
+		}
+	}
+	f.close();
+}
+
+bool Room::checkBanUser(std::string username) {
+	for (std::vector<std::string>::iterator i = banData.begin(); i != banData.end(); i++) {
+		if (i->compare(username) == 0)
+			return true;
+	}
+	return false;
 }

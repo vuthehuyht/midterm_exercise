@@ -38,6 +38,7 @@ Server::Server(){
 
 	std::cout << config.getIpServer() << ":" << config.getPortServer() << std::endl;
 }
+
 bool Server::listenForNewConnection() {
 	std::cout << "Waiting..." << std::endl;
 	SOCKET newConnect = accept(listening, (SOCKADDR*)&addr, &addrlen);
@@ -54,6 +55,7 @@ bool Server::listenForNewConnection() {
 			recv(newConnect, data, sizeof(data), 0);
 			if (Room::getIntance()->checkUsername(std::string(data))) {
 				sessionptr.addConnection(newConnect, std::string(data));
+				sessionptr.setUserOnline(std::string(data));
 				std::cout << "Client connected!" << std::endl;
 				char sucessMsg[15] = "sucessfully";
 				send(newConnect, sucessMsg, sizeof(sucessMsg), 0);
@@ -71,6 +73,7 @@ bool Server::listenForNewConnection() {
 			recv(newConnect, data, sizeof(data), 0);
 			if (Room::getIntance()->checkUsername(std::string(data))) {
 				sessionptr.addConnection(newConnect, std::string(data));
+				sessionptr.setUserOnline(std::string(data));
 				Room::getIntance()->createInforRoom(std::string(data));
 				Session::getIntance()->setOwner(std::string(data));
 				std::cout << "Client connected!" << std::endl;
@@ -78,6 +81,10 @@ bool Server::listenForNewConnection() {
 				send(newConnect, sucessMsg, sizeof(sucessMsg), 0);
 				std::thread t(createHandle, newConnect);
 				t.detach();
+			}
+			else {
+				char errMsg[100] = "Check username again!";
+				send(newConnect, errMsg, sizeof(errMsg), 0);
 			}
 		}
 	}

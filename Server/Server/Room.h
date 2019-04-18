@@ -29,6 +29,7 @@ public:
 	void removeModUser(std::string username);
 	void addFilterWord(std::string keyword, std::string replace_keyword);
 	void removeFilterWord(std::string keyword);
+	void removeLeftUser(std::string username);
 
 	std::vector<std::string> getModData();
 
@@ -36,6 +37,16 @@ public:
 	std::string getOwner();
 	std::string getTimeCreation();
 	std::string getRuleChat();
+
+	std::string getOwnerUsername() {
+		return ownerUsername;
+	}
+	std::map<std::string, std::string> getFilterMap() {
+		return filterData;
+	}
+
+	bool checkModUser(std::string username);
+	bool checkBanUser(std::string username);
 private:
 	std::map<std::string, std::string> filterData;
 	std::vector<std::string> banData;
@@ -52,6 +63,7 @@ private:
 	void saveBanList();
 	void saveModList();
 	void saveFilterList();
+	void saveMemberList();
 	void createTime();
 
 protected:

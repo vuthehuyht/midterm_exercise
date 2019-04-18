@@ -26,6 +26,7 @@ public:
 	std::string getTimePrint();
 	void setRuleUser();
 	void setOwner(std::string username);
+	void setUserOnline(std::string username);
 
 private:
 	std::map<SOCKET, std::string> connections;

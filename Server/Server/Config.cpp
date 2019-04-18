@@ -52,6 +52,7 @@ void Config::loadFilterList() {
 			}
 			if (index == 2) {
 				value = data;
+				filterData.insert(std::make_pair(key, value));
 				index = 1;
 				continue;
 			}
@@ -68,7 +69,8 @@ void Config::loadBanList(){
 		std::string line;
 		while (!f.eof()) {
 			std::getline(f, line);
-			banData.push_back(line);
+			if(line.empty() == false)
+				banData.push_back(line);
 		}
 	}
 	f.close();
@@ -82,7 +84,8 @@ void Config::loadModList() {
 		std::string line;
 		while (!f.eof()) {
 			std::getline(f, line);
-			modData.push_back(line);
+			if(line.empty() == false)
+				modData.push_back(line);
 		}
 	}
 	f.close();
