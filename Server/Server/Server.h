@@ -18,6 +18,7 @@ private:
 	SOCKADDR_IN addr;
 	int addrlen = sizeof(addr);
 	SOCKET listening = INVALID_SOCKET;
+	Room room;
 	Config config;
 };
 

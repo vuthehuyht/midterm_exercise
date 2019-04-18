@@ -52,7 +52,14 @@ void Config::loadFilterList() {
 			}
 			if (index == 2) {
 				value = data;
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 				filterData.insert(std::make_pair(key, value));
+>>>>>>> discard1
+=======
+				filterData.insert(std::make_pair(key, value));
+>>>>>>> 5724396d1647f74dd77139ede4f6e1561a128b6f
 				index = 1;
 				continue;
 			}
@@ -69,14 +76,27 @@ void Config::loadBanList(){
 		std::string line;
 		while (!f.eof()) {
 			std::getline(f, line);
+<<<<<<< HEAD
+<<<<<<< HEAD
+			banData.push_back(line);
+=======
 			if(line.empty() == false)
 				banData.push_back(line);
+>>>>>>> discard1
+=======
+			if(line.empty() == false)
+				banData.push_back(line);
+>>>>>>> 5724396d1647f74dd77139ede4f6e1561a128b6f
 		}
 	}
 	f.close();
 }
 void Config::loadModList() {
+<<<<<<< HEAD
+	f.open("banData.txt", std::ios::in);
+=======
 	f.open("modData.txt", std::ios::in);
+>>>>>>> discard1
 
 	if (f.fail())
 		std::cout << "Opening file fail" << std::endl;
@@ -84,8 +104,17 @@ void Config::loadModList() {
 		std::string line;
 		while (!f.eof()) {
 			std::getline(f, line);
+<<<<<<< HEAD
+<<<<<<< HEAD
+			modData.push_back(line);
+=======
 			if(line.empty() == false)
 				modData.push_back(line);
+>>>>>>> discard1
+=======
+			if(line.empty() == false)
+				modData.push_back(line);
+>>>>>>> 5724396d1647f74dd77139ede4f6e1561a128b6f
 		}
 	}
 	f.close();

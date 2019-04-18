@@ -84,10 +84,87 @@ void Session::messageHandle(SOCKET s) {
 					send(s, completeMess, sizeof(completeMess), 0);
 					ZeroMemory(completeMess, sizeof(completeMess));
 				}
+<<<<<<< HEAD
+				else if (strcmp(first->data(), "/report") == 0) {
+					if (Room::getIntance()->checkModUser(username) || username.compare(Room::getIntance()->getOwnerUsername()) == 0) {
+						std::vector<std::string>::iterator second = splitedMessage.begin() + 1;
+						if (second->compare("all") == 0) {
+							for (std::map<std::string, User>::iterator i = userList.begin(); i != userList.end(); i++) {
+								strcat_s(completeMess, i->first.c_str());
+								strcat_s(completeMess, ",");
+							}
+							send(s, completeMess, sizeof(completeMess), 0);
+							ZeroMemory(completeMess, sizeof(completeMess));
+						}
+						else if (second->compare("offline") == 0) { //loi
+							for (std::map<std::string, User>::iterator i = userList.begin(); i != userList.end(); i++) {
+								if (i->second.getOnlineStatus() == 0) {
+									strcat_s(completeMess, i->first.c_str());
+									strcat_s(completeMess, ",");
+								}
+							}
+							send(s, completeMess, sizeof(completeMess), 0);
+							ZeroMemory(completeMess, sizeof(completeMess));
+						}
+						else { //loi
+							for (std::map<std::string, User>::iterator i = userList.begin(); i != userList.end(); i++) {
+								if (i->second.getOnlineStatus() == 1) {
+									strcat_s(completeMess, i->first.c_str());
+									strcat_s(completeMess, ",");
+								}
+							}
+							send(s, completeMess, sizeof(completeMess), 0);
+							ZeroMemory(completeMess, sizeof(completeMess));
+						}
+					}
+					else {
+						char errorMess[30] = "You don't have this rule!";
+						send(s, errorMess, sizeof(errorMess), 0);
+					}
+				}
+				else if (strcmp(first->data(), "/filters") == 0) {
+					if (Room::getIntance()->checkModUser(username) || username.compare(Room::getIntance()->getOwnerUsername()) == 0) {
+						std::map<std::string, std::string> mapTemp = Room::getIntance()->getFilterMap();
+						for (std::map<std::string, std::string>::iterator i = mapTemp.begin(); i != mapTemp.end(); i++) {
+							strcat_s(completeMess, i->first.c_str());
+							strcat_s(completeMess, "-");
+							strcat_s(completeMess, i->second.c_str());
+							strcat_s(completeMess, "\n");
+						}
+						send(s, completeMess, sizeof(completeMess), 0);
+					}
+					else {
+						char errorMess[30] = "You don't have this rule!";
+						send(s, errorMess, sizeof(errorMess), 0);
+					}
+				}
+				else if (strcmp(first->data(), "/filter") == 0) {
+					if (Room::getIntance()->checkModUser(username) || username.compare(Room::getIntance()->getOwnerUsername()) == 0) {
+						std::vector<std::string>::iterator keyword = splitedMessage.begin() + 1;
+						std::vector<std::string>::iterator replaced_word = splitedMessage.begin() + 2;
+						Room::getIntance()->addFilterWord(keyword->data(), replaced_word->data());
+					}
+					else {
+						char errorMess[30] = "You don't have this rule!";
+						send(s, errorMess, sizeof(errorMess), 0);
+					}
+				}
+				else if (strcmp(first->data(), "/unfilter") == 0) {
+					if (Room::getIntance()->checkModUser(username) || username.compare(Room::getIntance()->getOwnerUsername()) == 0) {
+						std::vector<std::string>::iterator keyword = splitedMessage.begin() + 1;
+						Room::getIntance()->removeFilterWord(keyword->data());
+					}
+					else {
+						char errorMess[30] = "You don't have this rule!";
+						send(s, errorMess, sizeof(errorMess), 0);
+					}
+				}
+=======
 				
 				
 				
 				
+>>>>>>> 5724396d1647f74dd77139ede4f6e1561a128b6f
 				else if (strcmp(first->data(), "/ban") == 0) {
 					if (username.compare(Room::getIntance()->getOwnerUsername()) == 0) {
 						for (std::vector<std::string>::iterator it = splitedMessage.begin() + 1; it != splitedMessage.end(); it++) {

@@ -29,7 +29,11 @@ void Room::getBanList() {
 }
 
 void Room::getModList() {
+<<<<<<< HEAD
+	configptr.getModList();
+=======
 	configptr.loadModList();
+>>>>>>> discard1
 	modData = configptr.getModList();
 }
 
@@ -38,6 +42,10 @@ void Room::getMemberList() {
 	memberData = configptr.getMemberList();
 }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> discard1
 bool Room::checkUsername(std::string username) {
 	for (std::vector<std::string>::iterator i = memberData.begin(); i != memberData.end(); i++) {
 		if (username.compare(i->data()) == 0)
@@ -47,7 +55,11 @@ bool Room::checkUsername(std::string username) {
 }
 
 void Room::displayModOwner() {
+<<<<<<< HEAD
+
+=======
 	
+>>>>>>> discard1
 }
 
 void Room::setRules(std::string rules) {
@@ -60,6 +72,14 @@ void Room::addBanUser(std::string username) {
 }
 
 void Room::removeBanUser(std::string username) {
+<<<<<<< HEAD
+<<<<<<< HEAD
+	for (std::vector<std::string>::iterator i = banData.begin(); i != banData.end(); i++) {
+		if (username.compare(i->data()) == 0) {
+			banData.erase(i);
+=======
+=======
+>>>>>>> 5724396d1647f74dd77139ede4f6e1561a128b6f
 	if (banData.size() == 1) {
 		banData.erase(banData.begin());
 	}
@@ -67,6 +87,10 @@ void Room::removeBanUser(std::string username) {
 		for (std::vector<std::string>::iterator i = banData.begin(); i != banData.end(); i++) {
 			if (i->compare(username) == 0)
 				banData.erase(i);
+<<<<<<< HEAD
+>>>>>>> discard1
+=======
+>>>>>>> 5724396d1647f74dd77139ede4f6e1561a128b6f
 		}
 	}
 	saveBanList();
@@ -78,6 +102,14 @@ void Room::addModUser(std::string username) {
 }
 
 void Room::removeModUser(std::string username) {
+<<<<<<< HEAD
+<<<<<<< HEAD
+	for (std::vector<std::string>::iterator i = modData.begin(); i != modData.end(); i++) {
+		if (username.compare(i->data()) == 0) {
+			modData.erase(i);
+=======
+=======
+>>>>>>> 5724396d1647f74dd77139ede4f6e1561a128b6f
 	if (modData.size() == 1)
 		modData.erase(modData.begin());
 	else {
@@ -85,6 +117,10 @@ void Room::removeModUser(std::string username) {
 			if (i->compare(username) == 0) {
 				modData.erase(i);
 			}
+<<<<<<< HEAD
+>>>>>>> discard1
+=======
+>>>>>>> 5724396d1647f74dd77139ede4f6e1561a128b6f
 		}
 	}
 	saveModList();
@@ -134,12 +170,20 @@ void Room::saveFilterList() {
 	f.open("filterData.txt", std::ios::out);
 
 	if (f.fail())
+<<<<<<< HEAD
+		std::cerr << "Opening file failed!" << std::endl;
+=======
 		std::cerr << "Opening fail failed!" << std::endl;
+>>>>>>> discard1
 	else {
 		for (std::map<std::string, std::string>::iterator i = filterData.begin(); i != filterData.end(); i++) {
 			f << i->first << std::endl;
 			f << i->second << std::endl;
+<<<<<<< HEAD
+		}
+=======
  		}
+>>>>>>> discard1
 	}
 	f.close();
 }
@@ -171,6 +215,10 @@ std::string Room::getTimeCreation() {
 
 std::string Room::getRuleChat() {
 	std::string res;
+<<<<<<< HEAD
+	res = "Rules: " + ruleChat;
+	return res;
+=======
 	res ="Rules: "+ ruleChat;
 	return res;
 }
@@ -218,4 +266,8 @@ bool Room::checkBanUser(std::string username) {
 			return true;
 	}
 	return false;
+<<<<<<< HEAD
+>>>>>>> discard1
+=======
+>>>>>>> 5724396d1647f74dd77139ede4f6e1561a128b6f
 }
