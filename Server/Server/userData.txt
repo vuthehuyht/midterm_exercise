@@ -1,4 +1,5 @@
 huy
+<<<<<<< HEAD
 
 thuan
 
@@ -7,3 +8,12 @@ trang
 ha
 
 giang
+=======
+thuan
+trang
+ha
+giang
+hong
+hieu
+thuy
+>>>>>>> discard1

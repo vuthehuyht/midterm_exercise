@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 Tu
+=======
+hong
+>>>>>>> discard1

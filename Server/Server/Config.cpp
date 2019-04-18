@@ -52,6 +52,10 @@ void Config::loadFilterList() {
 			}
 			if (index == 2) {
 				value = data;
+<<<<<<< HEAD
+=======
+				filterData.insert(std::make_pair(key, value));
+>>>>>>> discard1
 				index = 1;
 				continue;
 			}
@@ -68,13 +72,22 @@ void Config::loadBanList(){
 		std::string line;
 		while (!f.eof()) {
 			std::getline(f, line);
+<<<<<<< HEAD
 			banData.push_back(line);
+=======
+			if(line.empty() == false)
+				banData.push_back(line);
+>>>>>>> discard1
 		}
 	}
 	f.close();
 }
 void Config::loadModList() {
+<<<<<<< HEAD
 	f.open("banData.txt", std::ios::in);
+=======
+	f.open("modData.txt", std::ios::in);
+>>>>>>> discard1
 
 	if (f.fail())
 		std::cout << "Opening file fail" << std::endl;
@@ -82,7 +95,12 @@ void Config::loadModList() {
 		std::string line;
 		while (!f.eof()) {
 			std::getline(f, line);
+<<<<<<< HEAD
 			modData.push_back(line);
+=======
+			if(line.empty() == false)
+				modData.push_back(line);
+>>>>>>> discard1
 		}
 	}
 	f.close();
