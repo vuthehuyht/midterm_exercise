@@ -82,7 +82,6 @@ bool Server::listenForNewConnection() {
 		if (strcmp(data, "1") == 0) {
 			ZeroMemory(data, sizeof(data));
 			recv(newConnect, data, sizeof(data), 0);
-			if (Room::getIntance()->checkUsername(std::string(data))) {
 				sessionptr.addConnection(newConnect, std::string(data));
 				sessionptr.setUserOnline(std::string(data));
 				Room::getIntance()->createInforRoom(std::string(data));
@@ -92,11 +91,6 @@ bool Server::listenForNewConnection() {
 				send(newConnect, sucessMsg, sizeof(sucessMsg), 0);
 				std::thread t(createHandle, newConnect);
 				t.detach();
-			}
-			else {
-				char errMsg[100] = "Check username again!";
-				send(newConnect, errMsg, sizeof(errMsg), 0);
-			}
 		}
 	}
 	return true;
