@@ -5,10 +5,6 @@
 #include<vector>
 #include<sstream>
 #include<map>
-<<<<<<< HEAD
-#include "User.h"
-=======
->>>>>>> discard1
 //using namespace std;
 
 class Config

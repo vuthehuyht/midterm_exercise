@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-shit
-fuck
-=======
 a
 b
 c
 d
->>>>>>> discard1

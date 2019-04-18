@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-Anh
-Ha
-Han
-=======
 trang
 hieu
 huy
->>>>>>> discard1

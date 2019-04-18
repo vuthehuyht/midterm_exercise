@@ -29,19 +29,12 @@ Server::Server(){
 		exit(1);
 	}
 
-<<<<<<< HEAD
-	room.getMemberList();
-	room.getBanList();
-	room.getFilterList();
-	room.getModList();
-=======
 	Room::getIntance()->getMemberList();
 	Room::getIntance()->getBanList();
 	Room::getIntance()->getFilterList();
 	Room::getIntance()->getModList();
 	
 	sessionptr.setRuleUser();
->>>>>>> discard1
 
 	std::cout << config.getIpServer() << ":" << config.getPortServer() << std::endl;
 }
@@ -60,11 +53,7 @@ bool Server::listenForNewConnection() {
 		if (strcmp(data, "2") == 0) {
 			ZeroMemory(data, sizeof(data));
 			recv(newConnect, data, sizeof(data), 0);
-<<<<<<< HEAD
-			if (room.checkUsername(std::string(data))) {
-=======
 			if (Room::getIntance()->checkUsername(std::string(data))) {
->>>>>>> discard1
 				sessionptr.addConnection(newConnect, std::string(data));
 				sessionptr.setUserOnline(std::string(data));
 				std::cout << "Client connected!" << std::endl;
