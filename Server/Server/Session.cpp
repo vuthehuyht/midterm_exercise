@@ -133,20 +133,31 @@ void Session::messageHandle(SOCKET s) {
 					}
 				}
 				else if (strcmp(first->data(), "/setinfo") == 0) {
-					std::vector<std::string>::iterator rule = splitedMessage.begin() + 1;
-					Room::getIntance()->setRules(rule->data());
+					if (username.compare(Room::getIntance()->getOwnerUsername()) == 0) {
+						std::stringstream ss;
+						for (std::vector<std::string>::iterator i = splitedMessage.begin() + 1; i != splitedMessage.end(); i++) {
+							ss << i->data() << ' ';
+						}
+						Room::getIntance()->setRules(ss.str());
+					}
+					else {
+						char errorMess[30] = "You don't have this rule!";
+						send(s, errorMess, sizeof(errorMess), 0);
+					}
 				}
 				else {
-					strcat_s(completeMess, username.c_str());
-					strcat_s(completeMess, ": ");
-					strcat_s(completeMess, buffer);
-					controlptr.addMessage(std::string(completeMess));
-					for (std::map<SOCKET, std::string>::iterator i = connections.begin(); i != connections.end(); i++) {
-						if (i->first != s && Room::getIntance()->checkBanUser(i->second) == false) {
-							char temp[1024];
-							ZeroMemory(temp, sizeof(temp));
-							strcpy(temp, controlptr.getMessage().c_str());
-							send(i->first, temp, sizeof(temp), 0);
+					if (connections.size() > 1) {
+						strcat_s(completeMess, username.c_str());
+						strcat_s(completeMess, ": ");
+						strcat_s(completeMess, buffer);
+						controlptr.addMessage(std::string(completeMess));
+						for (std::map<SOCKET, std::string>::iterator i = connections.begin(); i != connections.end(); i++) {
+							if (i->first != s && Room::getIntance()->checkBanUser(i->second) == false) {
+								char temp[1024];
+								ZeroMemory(temp, sizeof(temp));
+								strcpy(temp, controlptr.getMessage().c_str());
+								send(i->first, temp, sizeof(temp), 0);
+							}
 						}
 					}
 				}
