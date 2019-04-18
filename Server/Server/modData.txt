@@ -5,5 +5,9 @@ Han
 =======
 trang
 hieu
+<<<<<<< HEAD
 huy
 >>>>>>> discard1
+=======
+huy
+>>>>>>> 5724396d1647f74dd77139ede4f6e1561a128b6f

@@ -84,6 +84,7 @@ void Session::messageHandle(SOCKET s) {
 					send(s, completeMess, sizeof(completeMess), 0);
 					ZeroMemory(completeMess, sizeof(completeMess));
 				}
+<<<<<<< HEAD
 				else if (strcmp(first->data(), "/report") == 0) {
 					if (Room::getIntance()->checkModUser(username) || username.compare(Room::getIntance()->getOwnerUsername()) == 0) {
 						std::vector<std::string>::iterator second = splitedMessage.begin() + 1;
@@ -158,6 +159,12 @@ void Session::messageHandle(SOCKET s) {
 						send(s, errorMess, sizeof(errorMess), 0);
 					}
 				}
+=======
+				
+				
+				
+				
+>>>>>>> 5724396d1647f74dd77139ede4f6e1561a128b6f
 				else if (strcmp(first->data(), "/ban") == 0) {
 					if (username.compare(Room::getIntance()->getOwnerUsername()) == 0) {
 						for (std::vector<std::string>::iterator it = splitedMessage.begin() + 1; it != splitedMessage.end(); it++) {

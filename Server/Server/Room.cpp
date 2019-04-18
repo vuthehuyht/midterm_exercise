@@ -73,10 +73,13 @@ void Room::addBanUser(std::string username) {
 
 void Room::removeBanUser(std::string username) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	for (std::vector<std::string>::iterator i = banData.begin(); i != banData.end(); i++) {
 		if (username.compare(i->data()) == 0) {
 			banData.erase(i);
 =======
+=======
+>>>>>>> 5724396d1647f74dd77139ede4f6e1561a128b6f
 	if (banData.size() == 1) {
 		banData.erase(banData.begin());
 	}
@@ -84,7 +87,10 @@ void Room::removeBanUser(std::string username) {
 		for (std::vector<std::string>::iterator i = banData.begin(); i != banData.end(); i++) {
 			if (i->compare(username) == 0)
 				banData.erase(i);
+<<<<<<< HEAD
 >>>>>>> discard1
+=======
+>>>>>>> 5724396d1647f74dd77139ede4f6e1561a128b6f
 		}
 	}
 	saveBanList();
@@ -97,10 +103,13 @@ void Room::addModUser(std::string username) {
 
 void Room::removeModUser(std::string username) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	for (std::vector<std::string>::iterator i = modData.begin(); i != modData.end(); i++) {
 		if (username.compare(i->data()) == 0) {
 			modData.erase(i);
 =======
+=======
+>>>>>>> 5724396d1647f74dd77139ede4f6e1561a128b6f
 	if (modData.size() == 1)
 		modData.erase(modData.begin());
 	else {
@@ -108,7 +117,10 @@ void Room::removeModUser(std::string username) {
 			if (i->compare(username) == 0) {
 				modData.erase(i);
 			}
+<<<<<<< HEAD
 >>>>>>> discard1
+=======
+>>>>>>> 5724396d1647f74dd77139ede4f6e1561a128b6f
 		}
 	}
 	saveModList();
@@ -254,5 +266,8 @@ bool Room::checkBanUser(std::string username) {
 			return true;
 	}
 	return false;
+<<<<<<< HEAD
 >>>>>>> discard1
+=======
+>>>>>>> 5724396d1647f74dd77139ede4f6e1561a128b6f
 }
